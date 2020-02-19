@@ -18,27 +18,27 @@ public class TestController {
     public String gcs() {
         Storage storage = StorageOptions.getDefaultInstance().getService();
 
-        System.out.println("storage.toString : " + storage.toString());
+        System.out.println("LOGTYPE:STORAGE-UPLOAD-START, storage.toString : " + storage.toString());
         BlobInfo blobinfo = BlobInfo.newBuilder(BlobId.of("onsalestorage", "test.txt")).build();
-        System.out.println("blobinfo.getUpdateTime : " + blobinfo.getUpdateTime());
+        System.out.println("LOGTYPE:STORAGE-UPLOAD-..., blobinfo.getUpdateTime : " + blobinfo.getUpdateTime());
 
 // Generate Signed URL
         URL url = storage.signUrl(blobinfo, 10, TimeUnit.MINUTES);
 
-        System.out.println("curl '" + url + "'");
-
+        System.out.println("LOGTYPE:STORAGE-UPLOAD-..., url: " + url + ":");
+        System.out.println("LOGTYPE:STORAGE-UPLOAD-FINISH");
         return url.toString();
     }
 
     @GetMapping("gcsDown")
     public void gcsDown() {
         Storage storage = StorageOptions.getDefaultInstance().getService();
-
-        System.out.println("storage.toString : " + storage.toString());
+        
+        System.out.println("LOGTYPE:STORAGE-DOWN-START, storage.toString : " + storage.toString());
         Blob blob = storage.get(BlobId.of("onsalestorage", "test.txt"));
 
-// Generate Signed URL
         blob.downloadTo(Paths.get("test-create-empty-blob"));
-
+        System.out.println("LOGTYPE:STORAGE-DOWN-FINISH");
     }
+
 }
