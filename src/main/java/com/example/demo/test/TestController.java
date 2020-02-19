@@ -1,7 +1,6 @@
 package com.example.demo.test;
 
 import com.google.cloud.storage.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,13 +13,6 @@ import java.util.concurrent.TimeUnit;
 @RequestMapping
 public class TestController {
 
-    @Autowired
-    private TestService testService;
-
-    @GetMapping(value = "test")
-    public String test(){
-        return this.testService.test();
-    }
 
     @GetMapping("gcs")
     public String gcs() {
