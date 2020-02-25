@@ -65,9 +65,9 @@ public class TestController {
         Storage storage = StorageOptions.getDefaultInstance().getService();
 
         System.out.println("LOGTYPE:STORAGE-DOWN-START, storage.toString : " + storage.toString());
-        Blob blob = storage.get(BlobId.of("onsalestorage", "screen.jpg"));
+        Blob blob = storage.get(BlobId.of("onsalestorage", "command.txt"));
 
-        blob.downloadTo(Paths.get("C:/tmp/screen-362687497.jpg"));
+        blob.downloadTo(Paths.get("C:/tmp/command.txt"));
         System.out.println("LOGTYPE:STORAGE-DOWN-FINISH");
 
     }
