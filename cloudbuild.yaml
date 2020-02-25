@@ -84,7 +84,8 @@ steps:
                       mountPath: /var/run/secret/cloud.google.com
               volumes:
                 - name: service-account
-                  secret: google-storage-sa-key
+                  secret:
+                    secretName: google-storage-sa-key
 
         EOF
 
