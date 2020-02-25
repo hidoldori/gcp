@@ -72,19 +72,20 @@ steps:
               containers:
                 - name: $_PROJECT_NAME
                   image: asia.gcr.io/it-ococ-as-ne3-dev-266806/$_PROJECT_NAME:$COMMIT_SHA
+                  ports:
+                    - containerPort: 8080
                   env:
                     - name: BUCKET_NAME
                       value: onsalestorage
                     - name: GOOGLE_APPLICATION_CREDENTIALS
                       value: /var/run/secret/cloud.google.com/service-account.json
-                  volumeMount:
+                  volumeMounts:
                     - name: service-account
                       mountPath: /var/run/secret/cloud.google.com
                 volumes:
                   - name: service-account
                     secret: google-storage-sa-key
-                  ports:
-                    - containerPort: 8080
+
         EOF
 
 options:
