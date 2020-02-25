@@ -81,7 +81,7 @@ public class TestController {
 
 
     @GetMapping("gcsUpload")
-    public void gcsUpload() throws Exception {
+    public void gcsUpload() throws Exception {  
 
         Storage storage = StorageOptions.getDefaultInstance().getService();
 
