@@ -85,7 +85,7 @@ public class TestController {
 
         Storage storage = StorageOptions.getDefaultInstance().getService();
 
-        GoogleCredentials credentials = GoogleCredentials.getApplicationDefault();   
+        GoogleCredentials credentials = GoogleCredentials.getApplicationDefault();
 
         System.out.println("::::::::::::" + credentials.getAuthenticationType() + "::::::::::");
         System.out.println("::::::::::::" + credentials.toString() + "::::::::::");
