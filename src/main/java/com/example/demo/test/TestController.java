@@ -1,6 +1,7 @@
 package com.example.demo.test;
 
 
+import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.WriteChannel;
 import com.google.cloud.storage.*;
 import org.apache.commons.io.FileUtils;
@@ -61,7 +62,7 @@ public class TestController {
 //    }
 
     @GetMapping("gcsDown")
-    public void gcsDown() {
+    public void gcsDown() throws Exception {
         Storage storage = StorageOptions.getDefaultInstance().getService();
 
         System.out.println("LOGTYPE:STORAGE-DOWN-START, storage.toString : " + storage.toString());
@@ -69,6 +70,11 @@ public class TestController {
 
         blob.downloadTo(Paths.get("C:/tmp/command.txt"));
         System.out.println("LOGTYPE:STORAGE-DOWN-FINISH");
+
+        GoogleCredentials credentials = GoogleCredentials.getApplicationDefault();
+
+        System.out.println("::::::::::::" + credentials.getAuthenticationType() + "::::::::::");
+        System.out.println("::::::::::::" + credentials.toString() + "::::::::::");
 
     }
 
@@ -78,6 +84,10 @@ public class TestController {
     public void gcsUpload() throws Exception {
 
         Storage storage = StorageOptions.getDefaultInstance().getService();
+
+        GoogleCredentials credentials = GoogleCredentials.getApplicationDefault();
+        System.out.println("::::::::::::" + credentials.getAuthenticationType() + "::::::::::");
+        System.out.println("::::::::::::" + credentials.toString() + "::::::::::");
 //
 //        String bucketName = "onsalestorage";
 //        int number = new Random().nextInt();
