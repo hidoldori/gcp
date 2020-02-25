@@ -78,17 +78,17 @@ public class TestController {
     public void gcsUpload() throws Exception {
 
         Storage storage = StorageOptions.getDefaultInstance().getService();
-
-        String bucketName = "onsalestorage";
-        int number = new Random().nextInt();
-        String blobName = "test-file-0221" + number + ".txt";
-
-        BlobId blobId = BlobId.of(bucketName, blobName);
-        BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType("text/plain").build();
-
-        // sample 1 - without signedURL
-        InputStream content = new ByteArrayInputStream("Hello, World!".getBytes("UTF-8"));
-        Blob blob = storage.create(blobInfo, content);
+//
+//        String bucketName = "onsalestorage";
+//        int number = new Random().nextInt();
+//        String blobName = "test-file-0221" + number + ".txt";
+//
+//        BlobId blobId = BlobId.of(bucketName, blobName);
+//        BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType("text/plain").build();
+//
+//        // sample 1 - without signedURL
+//        InputStream content = new ByteArrayInputStream("Hello, World!".getBytes("UTF-8"));
+//        Blob blob = storage.create(blobInfo, content);
 
 
         // sample 2 - with signedURL
@@ -109,21 +109,21 @@ public class TestController {
 
 //gs://onsalestorage/screen-362687497.jpg
 
-
-        String bucketName_2 = "onsalestorage";
-        int numbers_2 = new Random().nextInt();
-        String blobName_2 = "screen" + numbers_2 + ".jpg";
-        BlobId blobId_2 = BlobId.of(bucketName_2, blobName_2);
-        BlobInfo blobInfo_2 = BlobInfo.newBuilder(blobId_2).setContentType("image/jpeg").build();
-
-       signedURL = gcsGetSignUrl(storage, blobInfo_2);
-        File file = new File("C:/tmp/screen.jpg");
-
-        byte[] imageBytes = FileUtils.readFileToByteArray(file);
-
-        writer = storage.writer(signedURL);
-        writer.write(ByteBuffer.wrap(imageBytes, 0, imageBytes.length));
-        writer.close();
+//        이미지 테스트
+//        String bucketName_2 = "onsalestorage";
+//        int numbers_2 = new Random().nextInt();
+//        String blobName_2 = "screen" + numbers_2 + ".jpg";
+//        BlobId blobId_2 = BlobId.of(bucketName_2, blobName_2);
+//        BlobInfo blobInfo_2 = BlobInfo.newBuilder(blobId_2).setContentType("image/jpeg").build();
+//
+//       signedURL = gcsGetSignUrl(storage, blobInfo_2);
+//        File file = new File("C:/tmp/screen.jpg");
+//
+//        byte[] imageBytes = FileUtils.readFileToByteArray(file);
+//
+//        writer = storage.writer(signedURL);
+//        writer.write(ByteBuffer.wrap(imageBytes, 0, imageBytes.length));
+//        writer.close();
 
     }
 
