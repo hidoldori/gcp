@@ -78,8 +78,7 @@ public class TestController {
 
     }
 
-
-
+    
     @GetMapping("gcsUpload")
     public void gcsUpload() throws Exception {
 
@@ -101,9 +100,7 @@ public class TestController {
 //        InputStream content = new ByteArrayInputStream("Hello, World!".getBytes("UTF-8"));
 //        Blob blob = storage.create(blobInfo, content);
 
-
-        // sample 2 - with signedURL
-
+        //  signedURL
         String bucketName_1 = "onsalestorage";
         int numbers_1 = new Random().nextInt();
         String blobName_1 = "test-file-0221" + numbers_1 + ".txt";
@@ -116,9 +113,6 @@ public class TestController {
         WriteChannel writer = storage.writer(signedURL);
         writer.write(ByteBuffer.wrap(content_1, 0, content_1.length));
         writer.close();
-
-
-//gs://onsalestorage/screen-362687497.jpg
 
 //        이미지 테스트
 //        String bucketName_2 = "onsalestorage";
