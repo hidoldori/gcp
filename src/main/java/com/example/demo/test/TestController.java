@@ -2,6 +2,7 @@ package com.example.demo.test;
 
 
 import com.google.auth.oauth2.GoogleCredentials;
+import com.google.cloud.BatchResult;
 import com.google.cloud.WriteChannel;
 import com.google.cloud.storage.*;
 import org.apache.commons.io.FileUtils;
@@ -66,7 +67,7 @@ public class TestController {
         Storage storage = StorageOptions.getDefaultInstance().getService();
 
         System.out.println("LOGTYPE:STORAGE-DOWN-START, storage.toString : " + storage.toString());
-        Blob blob = storage.get(BlobId.of("onsalestorage", "command.txt"));
+        Blob blob = storage.get(BlobId.of("onsalestorage", "test.txt"));
 
         blob.downloadTo(Paths.get("C:/tmp/command.txt"));
         System.out.println("LOGTYPE:STORAGE-DOWN-FINISH");
@@ -78,7 +79,51 @@ public class TestController {
 
     }
 
-    
+    @GetMapping("gcsDelete")
+    public void gcsDelete() throws Exception {
+        Storage storage = StorageOptions.getDefaultInstance().getService();
+
+        GoogleCredentials credentials = GoogleCredentials.getApplicationDefault();
+
+        System.out.println("::::::::::::" + credentials.getAuthenticationType() + "::::::::::");
+        System.out.println("::::::::::::" + credentials.toString() + "::::::::::");
+
+        System.out.println("LOGTYPE:STORAGE-DELETE-START, storage.toString : " + storage.toString());
+
+        BlobId blobId1 = BlobId.of("onsalestorage", "test-file-0221-1638017637.txt");
+//        Blob blob = storage.get(BlobId.of("onsalestorage", "command.txt"));
+
+        BlobId blobId2 = BlobId.of("onsalestorage", "test-file-0221-518624264.txt");
+
+        StorageBatch obj = storage.batch();
+        obj.delete(blobId1).notify(new BatchResult.Callback<Boolean, StorageException>() {
+            @Override
+            public void success(Boolean aBoolean) {
+                System.out.println("delete success");
+            }
+
+            @Override
+            public void error(StorageException e) {
+                System.out.println(e.fillInStackTrace());
+            }
+        });
+        obj.delete(blobId2).notify(new BatchResult.Callback<Boolean, StorageException>() {
+            @Override
+            public void success(Boolean aBoolean) {
+                System.out.println("delete success");
+            }
+
+            @Override
+            public void error(StorageException e) {
+                System.out.println(e.fillInStackTrace());
+            }
+        });
+        obj.submit();
+
+        System.out.println("LOGTYPE:STORAGE-DELETE-FINISH");
+
+    }
+
     @GetMapping("gcsUpload")
     public void gcsUpload() throws Exception {
 
@@ -101,7 +146,7 @@ public class TestController {
 //        Blob blob = storage.create(blobInfo, content);
 
         //  signedURL
-        String bucketName_1 = "onsalestorage";
+        String bucketName_1 = "devusedphone";
         int numbers_1 = new Random().nextInt();
         String blobName_1 = "test-file-0221" + numbers_1 + ".txt";
         BlobId blobId_1 = BlobId.of(bucketName_1, blobName_1);
